@@ -45,6 +45,7 @@ def set_event_callback(callback: Callable) -> None:
     """
     global _event_callback
     _event_callback = callback
+    
 
 
 def _process_packet(packet) -> None:
@@ -68,7 +69,21 @@ def _process_packet(packet) -> None:
         from predictor import predict
         from responder import execute_response
         from otx_check import check_ip
-        from features import extract_features
+        from scapy.layers.inet import IP as _IP
+
+        # Whitelist — never block management traffic
+        WHITELIST_IPS = {
+            config.PI1_IP,
+            config.PI2_IP,
+            config.PI3_IP,
+            config.LAPTOP_IP,
+            "127.0.0.1",
+        }
+        if packet.haslayer(_IP):
+            _src = packet[_IP].src
+            _dst = packet[_IP].dst
+            if _src in WHITELIST_IPS or _dst in WHITELIST_IPS:
+                return
 
         # Extract feature vector
         feature_vec = extract_features(packet)
@@ -102,6 +117,17 @@ def _process_packet(packet) -> None:
             )
             _stats["packets_processed"] += 1
             return
+
+        # Skip flows with less than 3 packets — unreliable stats
+        from features import _flow_table, _flow_key
+        from scapy.layers.inet import IP as _IP2, TCP, UDP
+        if packet.haslayer(_IP2):
+            _ip = packet[_IP2]
+            _sp = packet[TCP].sport if packet.haslayer(TCP) else (packet[UDP].sport if packet.haslayer(UDP) else 0)
+            _dp = packet[TCP].dport if packet.haslayer(TCP) else (packet[UDP].dport if packet.haslayer(UDP) else 0)
+            _key = _flow_key(_ip.src, _ip.dst, _sp, _dp, _ip.proto)
+            if _flow_table.get(_key, {}).get("spkts", 0) < 3:
+                return
 
         # Build feature dict from vector
         from predictor import _models
