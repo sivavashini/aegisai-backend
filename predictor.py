@@ -716,7 +716,7 @@ def predict(feature_dict: dict) -> dict:
 
         # Step 6 — threshold decision
         # Only apply thresholds for confirmed attacks
-        if label == "Normal":
+        if stage2_label == "Normal":
             result["decision"] = "ALLOW"
             return result
         if score >= config.THREAT_BLOCK_THRESHOLD:
