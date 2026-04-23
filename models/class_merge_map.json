@@ -1,0 +1,12 @@
+{
+  "Normal": "Normal",
+  "Generic": "Volumetric",
+  "Exploits": "Exploits",
+  "Fuzzers": "Fuzzers",
+  "DoS": "Volumetric",
+  "Reconnaissance": "Reconnaissance",
+  "Analysis": "Infiltration",
+  "Backdoor": "Infiltration",
+  "Shellcode": "Infiltration",
+  "Worms": "Worms"
+}

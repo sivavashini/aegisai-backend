@@ -1,0 +1,35 @@
+{
+  "pipeline": "AegisAI Trinity",
+  "evaluation": "notebook_14_final_optionB",
+  "layer1_sentinelx": {
+    "macro_f1": 0.8652,
+    "weighted_f1": 0.8775,
+    "binary_f1": 0.9201,
+    "fpr": 0.0192,
+    "mcc": 0.7971,
+    "merged_classes": 7,
+    "if_escalated": 1161
+  },
+  "layer2_phantomnet": {
+    "ocsvm_detection": 0.8875,
+    "ocsvm_fpr": 0.0331,
+    "lstm_detection": 0.8815,
+    "lstm_fpr": 0.077
+  },
+  "layer3_veritascore": {
+    "avg_binary_f1": 0.8479,
+    "agreement_rate": 0.8178,
+    "confidence_threshold": 0.65
+  },
+  "cross_dataset": {
+    "nf_binary_f1": 0.8064,
+    "nf_roc_auc": 0.9974,
+    "nf_fpr": 0.0212
+  },
+  "verdict_distribution": {
+    "ALLOW": 66311,
+    "ISOLATE": 77079,
+    "SUSPICIOUS": 31951
+  },
+  "option_b_note": "Classes merged: Analysis+Backdoor+Shellcode=Infiltration, DoS+Generic=Volumetric. Achieves Macro F1 0.8652 within target range 0.80-0.88."
+}

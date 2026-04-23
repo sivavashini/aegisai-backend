@@ -2,8 +2,7 @@
 venv/
 __pycache__/
 *.pyc
-*.pkl
-*.onnx
-models/
 data/
 baseline.json
+models/sentinelx_shap_explainer.pkl
+models/sentinelx_lgbm_calibrated_stage2.pkl

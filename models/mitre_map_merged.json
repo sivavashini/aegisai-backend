@@ -1,0 +1,30 @@
+{
+  "Normal": {
+    "id": null,
+    "name": "No threat"
+  },
+  "Volumetric": {
+    "id": "TA0040",
+    "name": "Impact"
+  },
+  "Exploits": {
+    "id": "TA0002",
+    "name": "Execution"
+  },
+  "Fuzzers": {
+    "id": "TA0043",
+    "name": "Reconnaissance"
+  },
+  "Reconnaissance": {
+    "id": "TA0043",
+    "name": "Reconnaissance"
+  },
+  "Infiltration": {
+    "id": "TA0002",
+    "name": "Execution/Persistence"
+  },
+  "Worms": {
+    "id": "TA0008",
+    "name": "Lateral Movement"
+  }
+}

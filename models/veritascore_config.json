@@ -1,0 +1,8 @@
+{
+  "confidence_threshold": 0.65,
+  "classification": "binary",
+  "svm_binary_f1": 0.9005,
+  "gnb_binary_f1": 0.7954,
+  "avg_binary_f1": 0.8479,
+  "agreement_rate": 0.8178
+}

@@ -1,0 +1,42 @@
+{
+  "notebook": "08_sentinelx_evaluation",
+  "layer": "SentinelX \u2014 Layer 1",
+  "approach": "Hierarchical two-stage \u2014 Option B merged classes",
+  "class_merge": {
+    "Analysis+Backdoor+Shellcode": "Infiltration",
+    "DoS+Generic": "Volumetric",
+    "reason": "Temporal covariate shift between train and test periods makes fine-grained classification of these overlapping attack subtypes unreliable. Merging into semantically meaningful superclasses achieves production-grade accuracy."
+  },
+  "metrics": {
+    "macro_f1": 0.8652,
+    "weighted_f1": 0.8775,
+    "binary_f1": 0.9201,
+    "fpr": 0.0192,
+    "mcc": 0.7971,
+    "combined_catch": 0.8606
+  },
+  "targets": {
+    "macro_f1": "0.80 to 0.88",
+    "binary_f1": ">= 0.90",
+    "fpr": "0.5% to 5.0%"
+  },
+  "per_class_f1": {
+    "Exploits": 0.982,
+    "Fuzzers": 0.315,
+    "Infiltration": 0.914,
+    "Normal": 0.862,
+    "Reconnaissance": 0.991,
+    "Volumetric": 0.997,
+    "Worms": 0.996
+  },
+  "merged_classes": [
+    "Exploits",
+    "Fuzzers",
+    "Infiltration",
+    "Normal",
+    "Reconnaissance",
+    "Volumetric",
+    "Worms"
+  ],
+  "note": "Option B class merging. Infiltration covers Analysis+Backdoor+Shellcode. Volumetric covers DoS+Generic. Fuzzers at 0.315 reflects evasive low-and-slow attacks that deliberately mimic normal traffic \u2014 known limitation."
+}
