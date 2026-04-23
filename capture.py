@@ -206,9 +206,20 @@ def _capture_loop(interface: Optional[str] = None,
 
     try:
         from scapy.all import sniff
+        from features import clear_flow_table
+        _last_clear = time.time()
+
+        def _prn_with_clear(packet):
+            nonlocal _last_clear
+            if time.time() - _last_clear > 300:
+                clear_flow_table()
+                _last_clear = time.time()
+                logger.info("[CAPTURE] Flow table cleared")
+            _process_packet(packet)
+
         sniff(
             iface    = interface,
-            prn      = _process_packet,
+            prn      = _prn_with_clear,
             store    = False,
             stop_filter=lambda p: _stop_event.is_set(),
             count    = packet_count
@@ -262,8 +273,14 @@ def _simulate_capture_loop() -> None:
     ]
 
     flow_idx = 0
+    _last_clear = time.time()
     while not _stop_event.is_set():
         try:
+            if time.time() - _last_clear > 300:
+                from features import clear_flow_table
+                clear_flow_table()
+                _last_clear = time.time()
+                logger.info("[CAPTURE] Flow table cleared")
             flow = dict(
                 synthetic_flows[
                     flow_idx % len(synthetic_flows)])
