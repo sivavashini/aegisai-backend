@@ -18,3 +18,4 @@ aiofiles==23.2.1
 dnspython==2.6.1
 pandas==2.2.2
 psutil==5.9.8
+echo gdown >> requirements.txt
